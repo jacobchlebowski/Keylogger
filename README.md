@@ -6,3 +6,4 @@ Logs end-user keystrokes
 3. 'pip install pygetwindow'
 4. 'pip install pyautogui' 
 5. 'pip install keyboard'
+6. pip install pynput

