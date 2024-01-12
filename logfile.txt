@@ -1,0 +1,5 @@
+Window Title: *TODO - Notepad
+Window Position: (992, 688)
+Keystrokes:
+
+thisspaceisspaceaspaceloggingspacetestctrlc
