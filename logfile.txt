@@ -1,0 +1,13 @@
+
+Window Title: 
+Window Position: No-Window Selected
+Keystrokes and Mouse Clicks:
+[1705094610.787]shift
+[1705094610.791]Mouse Click at (468, 168)
+[1705094610.904]C
+[1705094610.906]Mouse Click at (468, 168)
+[1705094610.995]Mouse Click at (468, 168)
+[1705094611.015]Mouse Click at (468, 168)
+[1705094611.285]b
+[1705094611.287]Mouse Click at (468, 168)
+[1705094611.361]Mouse Click at (468, 168)
