@@ -1,12 +1,33 @@
 
 Window Title: Command Prompt - python  logger.py
-Window Position: (828, 59)
-[1705095223.141]Mouse Click at (491, 78)
+Window Position: (608, 52)
+[1705339133.017]Mouse Click at (325, 126)
 
 Window Title: 
 Window Position: No-Window Selected
-[1705095223.512]Mouse Click at (491, 78)
-[1705095223.868]Mouse Click at (491, 78)
-[1705095224.618]Mouse Click at (706, 87)
-[1705095224.882]Mouse Click at (706, 87)
-[1705095225.219]Mouse Click at (706, 87)
+[1705339135.543]Mouse Click at (667, 537)
+[1705339136.400]t
+[1705339136.464]e
+[1705339136.551]s
+[1705339136.603]t
+
+[1705339138.305]Mouse Click at (346, 141)
+[1705339138.619]Mouse Click at (346, 141)
+
+Window Title: test.txt - Notepad
+Window Position: (208, 208)
+[1705339140.108]Mouse Click at (512, 331)
+[1705339140.782]t
+[1705339140.869]h
+[1705339141.023]i
+[1705339141.093]s
+[1705339141.140]space
+[1705339141.247]i
+[1705339141.288]s
+[1705339141.382]space
+[1705339141.487]a
+[1705339141.570]space
+[1705339141.713]t
+[1705339141.790]e
+[1705339141.842]s
+[1705339141.920]t
