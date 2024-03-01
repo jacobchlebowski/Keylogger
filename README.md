@@ -1,5 +1,5 @@
 # keylogger
-Logs end-user keystrokes
+Logs end-user keystrokes, meant to be run within Ubuntu VM
 
 1. Open cmd 
 2. Install pip
